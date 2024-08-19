@@ -1,0 +1,133 @@
+@import '../../styles/variables.scss';
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  text-align: center;
+  margin: 40px 20px;
+  padding: 0px 100px;
+
+//   .build-dao-button {
+//     background-color: $secondary-color;
+//     color: white;
+//     padding: 10px 20px;
+//     margin-top: 20px;
+//     border: none;
+//     cursor: pointer;
+//   }
+
+  .build-dao-button {
+    background-color: $secondary-color;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px; /* 增加圆角 */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase; /* 让文本全部大写 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加按钮阴影 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+    background-image: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%); /* 渐变背景 */
+  
+    &:hover {
+      background-image: linear-gradient(135deg, lighten($secondary-color, 10%) 0%, $secondary-color 100%); /* 悬停时背景变亮 */
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 悬停时阴影加深 */
+      transform: translateY(-2px); /* 悬停时按钮稍微上移 */
+    }
+  
+    &:active {
+      transform: translateY(0); /* 点击时回到原位置 */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 点击时阴影恢复 */
+    }
+  }
+  
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 20px;
+
+  .feature-box {
+    background-color: $white-color;
+    padding: 20px;
+    color: black;
+    width: 30%;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: $secondary-color; 
+      text-decoration: underline; 
+    }
+  }
+}
+
+.nexus-kit, .nexus-netlink {
+  text-align: center;
+  margin: 40px 20px;
+  padding: 0px 100px;
+
+  .coming-soon {
+    background-color: $dark-gray;
+    color: gray;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px; /* 增加圆角 */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase; /* 让文本全部大写 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加按钮阴影 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+    background-image: linear-gradient(135deg, $dark-gray 0%, darken($dark-gray, 10%) 100%); /* 渐变背景 */
+  
+  }
+}
+
+// ----------------------------------------
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: white;
+  
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  
+    nav {
+      a {
+        margin: 0 10px;
+        color: white;
+        text-decoration: none;
+      }
+    }
+  
+    .wallet-button {
+      background-color: $primary-color;
+      border: 1px solid white;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  }

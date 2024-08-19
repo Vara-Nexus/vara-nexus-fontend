@@ -1,8 +1,25 @@
-@use '@gear-js/ui/variables' as *;
+// @use '@gear-js/ui/variables' as *;
+@import '../../../styles/variables.scss';
 
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* 让整个footer内容居中 */
   padding: 25px 0;
+  margin-top: 20px;
   border-top: 1px solid $lineColor;
+  background-color: $primary-color;
+
+  .footerLinks {
+
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    text-align: center; /* 如果链接文字较多换行，文本居中 */
+
+    a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
