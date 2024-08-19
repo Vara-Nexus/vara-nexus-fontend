@@ -1,0 +1,175 @@
+@import '../../styles/variables.scss';
+
+.proposalContainer {
+  background-color: #F8F9FB;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.proposalHeader {
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: $dark-text-color;
+  }
+
+  .publishedBy {
+    font-size: 14px;
+    color: $dark-text-color;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    color: $dark-text-color;
+  }
+}
+
+.proposalContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.votingSection {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 70%;
+  margin-right: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 18px;
+    color: $dark-text-color;
+    margin-bottom: 15px;
+  }
+
+  .proposalDefeated {
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .votingBreakdown {
+    display: flex;
+    margin-bottom: 15px;
+
+    button {
+      background-color: #f8f9fa;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .activeTab {
+      background-color: #007bff;
+      color: white;
+    }
+  }
+
+  .votingResults {
+    .voteItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      
+
+      .voteTitle {
+        font-size: 14px;
+        color: $dark-text-color;
+        width: 100px;
+        margin-right: 3px;
+      }
+
+      .voteToken {
+        font-size: 14px;
+        color: $dark-text-color;
+        width: 200px;
+        margin-right: 3px;
+      }
+
+      .voteProportion {
+        font-size: 14px;
+        color: $dark-text-color;
+        width: 30px;
+        margin-right: 3px;
+      }
+
+      .progressBar {
+        width: 80%;
+        background-color: #e9ecef;
+        border-radius: 5px;
+        height: 10px;
+        margin-right: 10px;
+        position: relative;
+
+        div {
+          height: 100%;
+          border-radius: 5px;
+        }
+      }
+
+      .yesBar {
+        background-color: #007bff;
+      }
+
+      .noBar {
+        background-color: #6c757d;
+      }
+
+      .abstainBar {
+        background-color: #17a2b8;
+      }
+    }
+  }
+
+  .voteSubmitted {
+    background-color: #e2e6ea;
+    color: #adb5bd;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: not-allowed;
+    margin-top: 20px;
+  }
+}
+
+.statusSection {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 30%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 18px;
+    color: $dark-text-color;
+    margin-bottom: 15px;
+  }
+
+  .statusItem {
+    margin-bottom: 20px;
+
+    span {
+      font-size: 16px;
+      color: $dark-text-color;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 14px;
+      color: $dark-text-color;
+      margin: 0;
+    }
+  }
+}

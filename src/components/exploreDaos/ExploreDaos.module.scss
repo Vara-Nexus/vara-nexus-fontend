@@ -74,3 +74,16 @@ h3 {
     color: #adb5bd;
   }
 }
+
+h3 {
+  a {
+    color: $primary-color; 
+    text-decoration: none; 
+    transition: color 0.3s ease, text-decoration 0.3s ease; 
+
+    &:hover {
+      color: $secondary-color; 
+      text-decoration: underline; 
+    }
+  }
+}

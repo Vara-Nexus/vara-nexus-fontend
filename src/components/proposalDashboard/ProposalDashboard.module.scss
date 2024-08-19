@@ -38,26 +38,6 @@
     }
   }
 
-  // .profile {
-  //   text-align: center;
-
-  //   img {
-  //     border-radius: 50%;
-  //     width: 50px;
-  //     height: 50px;
-  //     margin-bottom: 10px;
-  //   }
-
-  //   .followButton {
-  //     background-color: #ffffff;
-  //     border: 1px solid $primary-color;
-  //     color: $primary-color;
-  //     padding: 5px 10px;
-  //     border-radius: 4px;
-  //     cursor: pointer;
-  //   }
-  // }
-
   .profile {
     display: flex;
     flex-direction: column;
@@ -176,28 +156,3 @@
     }
   }
 }
-
-// .membersSection {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin-top: 20px;
-//   background-color: #ffffff;
-//   border-radius: 8px;
-//   padding: 20px;
-//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-//   span {
-//     font-size: 24px;
-//     font-weight: bold;
-//   }
-
-//   .addMembersButton {
-//     background-color: #007bff;
-//     color: #ffffff;
-//     border: none;
-//     padding: 10px 20px;
-//     border-radius: 4px;
-//     cursor: pointer;
-//   }
-// }
