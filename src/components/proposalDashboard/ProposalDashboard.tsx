@@ -1,15 +1,75 @@
 import { Wallet } from '@/features/wallet';
 import styles from './ProposalDashboard.module.scss';
-
+import { useAccount, useApi } from '@gear-js/react-hooks';
+import { useWallet } from '@/features/wallet/hooks';
+import { useEffect, useState } from 'react';
+import { ADDRESS, PROGRAMS } from '@/consts';
+import { Sails } from 'sails-js';
 
 function ProposalDashboard() {
+
+  const gearApi = useApi();
+  const {
+    wallet, walletAccounts, setWalletId, resetWalletId, getWalletAccounts, saveWallet, removeWallet,
+  } = useWallet();
+  const {extensions} =  useAccount()
+  const [daoInfos, setDaoInfos] = useState<TypeDaoInfos>();
+
+  const daoName =  decodeURIComponent(window.location.pathname.split('/').pop()??'');
+
+  type TypeDaoInfos = {
+    "name": string,
+    "description": string,
+    "token_actor": string,
+    "token": {
+        "name": string,
+        "symbol": string,
+        "decimals": number,
+        "total_supply": string
+    }
+}
+
+  const fetchBalanceList = async () => {
+
+    if(gearApi.api && walletAccounts && walletAccounts.length > 0 && extensions && extensions.length > 0) {
+      try {
+        
+        const sails = await Sails.new();
+        sails.setApi(gearApi.api);
+        // Load the IDL file
+        const idl = await fetch('./../src/idls/nexus_dao.idl').then((res) => res.text());
+        sails.parseIdl(idl);
+        sails.setProgramId(PROGRAMS.DAO_ID);
+
+        const _daoInfo: TypeDaoInfos = await sails.services.NexusDao.queries.GetDaoInfo(walletAccounts[0].address, undefined, undefined, daoName);
+        setDaoInfos(_daoInfo);
+
+        // 通过 GetProposals 获取所有的提案
+        const _proposals = await sails.services.NexusDao.queries.GetProposals(walletAccounts[0].address, undefined, undefined, daoName);
+        // @TODO
+        console.log('Proposals:', _proposals);
+
+      } catch (error) {
+        console.error('Failed to fetch daoName:', error);
+      }
+    }
+  }
+
+  useEffect(() => {
+
+    fetchBalanceList().catch((error) => {
+      alert('Failed to fetch da');
+    });
+
+    // fetchBalanceList();
+  }, []); 
+
   return (
     <div className={styles.dashboardContainer}>
       <header className={styles.header}>
         <div>
-          <h1>Linda’s Finance</h1>
-          <p>0xe3f…9b80</p>
-          <p>For finance manage</p>
+          <h1>{daoInfos?.name}</h1>
+          <p>{daoInfos?.description}</p>
           <div className={styles.metadata}>
             <span>📅 &nbsp;July 2024</span>
             {/* <span>🌐 &nbsp;Polygon</span> */}
@@ -55,10 +115,10 @@ function ProposalDashboard() {
             <button className={styles.newTransferButton}>New transfer</button>
           </div>
 
-          <div className={styles.members}>
+          {/* <div className={styles.members}>
             <p>5 Members</p>
             <button className={styles.newTransferButton}>Add member</button>
-          </div>
+          </div> */}
         </div>
 
 

@@ -3,14 +3,35 @@ import { Wallet } from '@/features/wallet';
 import styles from './TokenMintForm.module.scss';
 import React, { useState } from 'react';
 
-function TokenMintForm() {
-  const [address, setAddress] = useState('0x924...4e54');
-  const [tokens, setTokens] = useState("1");
-  const [allocation, setAllocation] = useState('100%');
+function TokenMintForm({ onChange }: { onChange: (formData: {programId: string}) => void }) {
+
+  const [programId, setProgramId] = useState('');
+
+  const handleProgramIdChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setProgramId(e.target.value);
+  };
+
+  const handleBlur = () => {
+    onChange({ programId: programId });
+  };
 
   return (
     <div className={styles.formContainer}>
+
       <div className={styles.formGroup}>
+        <label htmlFor="token-name">VFT Token</label>
+        <p className={styles.subtext}>Token program id </p>
+         <input
+          type="text"
+          id="token-program-id"
+          placeholder="Enter the VFT token program id"
+          value={programId}
+          onChange={handleProgramIdChange}
+          onBlur={handleBlur} 
+        />
+      </div>
+
+      {/* <div className={styles.formGroup}>
         <label htmlFor="token-name">Name</label>
         <p className={styles.subtext}>The full name of the token. </p>
         <input type="text" id="token-name" placeholder="Enter the token name..." />
@@ -38,23 +59,15 @@ function TokenMintForm() {
           <div className={styles.distributionItem}>
             <input type="address" value={address} disabled className={styles.walletAddress} />
             <div className={styles.actions}>
-              {/* <button onClick={() => navigator.clipboard.writeText(address)}>Copy</button>
-              <button>Link</button> */}
-              {/* <button>-</button> */}
               <input type="number" value={tokens} onChange={(e) => setTokens(e.target.value)} />
-              {/* <button>+</button> */}
-              {/* <input type="text" value={allocation} disabled />
-              <button>...</button> */}
             </div>
           </div>
           <div className={styles.addWalletButtonContainer}>
           <button className={styles.addWalletButton}>Add wallet +</button>
           </div>
-          
         </div>
-      </div>
+      </div> */}
 
-      
     </div>
   );
 }

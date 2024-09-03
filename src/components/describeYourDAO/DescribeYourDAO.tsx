@@ -1,12 +1,29 @@
 import { Wallet } from '@/features/wallet';
 
 import styles from './DescribeYourDAO.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function DescribeYourDAO() {
-  const [address, setAddress] = useState('0x924...4e54');
-  const [tokens, setTokens] = useState("1");
-  const [allocation, setAllocation] = useState('100%');
+function DescribeYourDAO({ onChange }: { onChange: (formData: {name: string, description: string}) => void }) {
+  
+  const [daoName, setDaoName] = useState('');
+  const [daoDescription, setDaoDescription] = useState('');
+
+  const handleNameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setDaoName(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setDaoDescription(e.target.value);
+  };
+
+  // useEffect(() => {
+  //   // Whenever the daoName or daoDescription changes, notify the parent component
+  //   onChange({ name: daoName, description: daoDescription });
+  // }, [daoName, daoDescription, onChange]);
+
+  const handleBlur = () => {
+    onChange({ name: daoName, description: daoDescription });
+  };
 
   return (
     <div className={styles.formContainer}>
@@ -14,8 +31,15 @@ function DescribeYourDAO() {
           <div className={styles.formGroup}>
             <label htmlFor="dao-name">Name</label>
             <p className={styles.subtext}>Maximum of 128 characters</p>
-            <input type="text" id="dao-name" placeholder="Type your DAO's name ..." />
-            <p className="char-count">0/128</p>
+            <input 
+              type="text" 
+              id="dao-name" 
+              placeholder="Type your DAO's name ..." 
+              value={daoName} 
+              onChange={handleNameChange} 
+              onBlur={handleBlur} 
+            />
+            <p className={styles.charCount}>{daoName.length}/128</p>
           </div>
           
           {/* <div className={styles.formGroup}>
@@ -29,7 +53,13 @@ function DescribeYourDAO() {
           <div className={styles.formGroup}>
             <label htmlFor="dao-description">Description</label>
             <p className={styles.subtext}>Describe your DAO&#39;s purpose in a few sentences. This is listed on the Explore page so new contributors can find you.</p>
-            <textarea id="dao-description" placeholder="Type your summary ..."></textarea>
+            <textarea 
+              id="dao-description" 
+              placeholder="Type your summary ..." 
+              value={daoDescription} 
+              onChange={handleDescriptionChange}
+              onBlur={handleBlur} 
+            ></textarea>
           </div>
           
     </div>

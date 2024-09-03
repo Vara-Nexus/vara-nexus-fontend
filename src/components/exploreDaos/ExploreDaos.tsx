@@ -1,9 +1,56 @@
 import { Wallet } from '@/features/wallet';
 
 import styles from './ExploreDaos.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAccount, useApi } from '@gear-js/react-hooks';
+import { useWallet } from '@/features/wallet/hooks';
+import { Sails } from 'sails-js';
+import { PROGRAMS } from '@/consts';
 
 function ExploreDaos() {
+
+  const gearApi = useApi();
+  const {
+    walletAccounts
+  } = useWallet();
+  const {extensions} =  useAccount()
+
+  const [daoInfos, setDaoInfos] = useState<{ name: string, description: string, token_actor: string, token: null }[]>([]);
+  
+  const fetchBalanceList = async () => {
+
+    if(gearApi.api && walletAccounts && walletAccounts.length > 0 && extensions && extensions.length > 0) {
+      try {
+        
+        const sails = await Sails.new();
+        sails.setApi(gearApi.api);
+        // Load the IDL file
+        const idl = await fetch('./src/idls/nexus_dao.idl').then((res) => res.text());
+        sails.parseIdl(idl);
+        sails.setProgramId(PROGRAMS.DAO_ID);
+
+        const result: [{
+          "name": string,
+          "description": string,
+          "token_actor": string,
+          "token": null
+        }] = await sails.services.NexusDao.queries.GetAllDaoInfo(walletAccounts[0].address);
+
+        setDaoInfos(result);
+        
+      } catch (error) {
+        console.error('Failed to fetch balances:', error);
+      }
+    }
+  }
+
+  useEffect(() => {
+
+    fetchBalanceList().catch((error) => {
+      alert('Failed to fetch da');
+    });
+
+  }, []);  
  
   return (
     <div className={styles.exploreContainer}>
@@ -15,7 +62,17 @@ function ExploreDaos() {
       </div>
 
       <div className={styles.daoCards}>
-        <div className={styles.daoCard}>
+        {daoInfos.map((daoInfo, index) => (
+          <div className={styles.daoCard} key={index}>
+            <h3><a href={`/explore-dao/${daoInfo.name}`}>{daoInfo.name}</a></h3>
+            <p>{daoInfo.description}</p>
+            <div className={styles.daoFooter}>
+              <span> Members</span>
+              <span> Proposals</span>
+            </div>
+          </div>
+        ))}
+        {/* <div className={styles.daoCard}>
           <h3><a href="/explore-dao/1">Green Earth DAO</a></h3>
           <p>Green Earth DAO is an initiative dedicated to promoting environmental sustainability through decentralized governance. By funding eco-friendly projects and supporting green technologies, Green Earth DAO aims to create a positive impact on our planet and inspire a new wave of ecological consciousness in the Web3 space.</p>
           <div className={styles.daoFooter}>
@@ -49,7 +106,7 @@ function ExploreDaos() {
           <span>1.2K Members</span>
           <span>103 Proposals</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
