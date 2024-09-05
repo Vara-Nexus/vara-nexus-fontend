@@ -5,6 +5,7 @@ import { useWallet } from '@/features/wallet/hooks';
 import { useEffect, useState } from 'react';
 import { ADDRESS, PROGRAMS } from '@/consts';
 import { Sails } from 'sails-js';
+import { useNavigate } from 'react-router-dom';
 
 function ProposalDashboard() {
 
@@ -17,17 +18,30 @@ function ProposalDashboard() {
 
   const daoName =  decodeURIComponent(window.location.pathname.split('/').pop()??'');
 
+  const [proposals, setProposals] = useState<TypeProposal[]>([]);
+
   type TypeDaoInfos = {
-    "name": string,
-    "description": string,
-    "token_actor": string,
-    "token": {
-        "name": string,
-        "symbol": string,
-        "decimals": number,
-        "total_supply": string
-    }
-}
+      "name": string,
+      "description": string,
+      "token_actor": string,
+      "token": {
+          "name": string,
+          "symbol": string,
+          "decimals": number,
+          "total_supply": string
+      }
+  }
+
+  type TypeProposal = {
+    creator: string
+    description: string
+    status: string
+    title: string
+    votes_against: number
+    votes_for: number
+    voting_end: number
+    voting_start: number
+  }
 
   const fetchBalanceList = async () => {
 
@@ -45,9 +59,10 @@ function ProposalDashboard() {
         setDaoInfos(_daoInfo);
 
         // 通过 GetProposals 获取所有的提案
-        const _proposals = await sails.services.NexusDao.queries.GetProposals(walletAccounts[0].address, undefined, undefined, daoName);
+        const _proposals: [TypeProposal] = await sails.services.NexusDao.queries.GetProposals(walletAccounts[0].address, undefined, undefined, daoName);
         // @TODO
         console.log('Proposals:', _proposals);
+        setProposals(_proposals.reverse());
 
       } catch (error) {
         console.error('Failed to fetch daoName:', error);
@@ -55,13 +70,16 @@ function ProposalDashboard() {
     }
   }
 
+  const navigate = useNavigate();
+  const handleGoToProposalCreate = () => {
+    navigate('/proposal-create/' + daoName);
+  }
+
   useEffect(() => {
 
     fetchBalanceList().catch((error) => {
       alert('Failed to fetch da');
     });
-
-    // fetchBalanceList();
   }, []); 
 
   return (
@@ -77,7 +95,7 @@ function ProposalDashboard() {
           </div>
         </div>
         <div className={styles.profile}>
-          <img src="/src/assets/images/proposal-logo.png" alt="Profile" />
+          <img src="/src/assets/images/6099e984a465a162069952448.png" alt="Profile" />
           <button className={styles.followButton}>Follow</button>
         </div>
       </header>
@@ -86,24 +104,36 @@ function ProposalDashboard() {
 
         <div className={styles.leftCell}>
           <div className={styles.proposals}>
-            <span>2 Proposals created</span>
-            <button className={styles.newProposalButton}>New proposal</button>
+            <span>{proposals.length} Proposals created</span>
+            <button onClick={handleGoToProposalCreate} className={styles.newProposalButton}>New proposal</button>
           </div>
 
           <div className={styles.proposalsList}>
-            <div className={styles.proposal}>
-              <span className={styles.statusDefeated}>Defeated</span>
+
+            {proposals.map((proposal, index) => (
+              
+              <div className={styles.proposal} key={index}>
+                <span className={styles.statusActived}>Actived</span>
+                <h3>{proposal.title}</h3>
+                <p>{proposal.description}</p>
+                <span>Published </span> 
+              </div>
+            ))}
+  
+
+            {/* <div className={styles.proposal}>
+              <span className={styles.statusActived}>Actived</span>
               <h3>Decided to participate in Vara’s hackathon.</h3>
               <p>The main purpose is to enter this new ecosystem and see if we can obtain a grant.</p>
-              <span>Published by you</span>
-            </div>
+              <span>Published </span>
+            </div> */}
 
-            <div className={styles.proposal}>
+            {/* <div className={styles.proposal}>
               <span className={styles.statusDefeated}>Defeated</span>
               <h3>Support the AVAR Hackathon</h3>
               <p>In order to support the AVAR community in developing a project similar to DAO, as a competition project for the hackathon.</p>
               <span>Published by 0x67f…5557</span>
-            </div>
+            </div> */}
           </div>
         </div>
 

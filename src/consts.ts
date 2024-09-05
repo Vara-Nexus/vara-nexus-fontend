@@ -10,7 +10,7 @@ const LOCAL_STORAGE = {
 };
 
 const PROGRAMS = {
-  DAO_ID: "0xf05bcaa7f4aec4205685aec7d6833d10a14d1716610c8cd2d8308c5ae1330abc" as HexString,
+  DAO_ID: "0xeba5483ab35106551aba7f35ae2b8a2d132bbc76e5a90055c79cc3ae7e35102d" as HexString,
 };
 
 export { ADDRESS, LOCAL_STORAGE, PROGRAMS};

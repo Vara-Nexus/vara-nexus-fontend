@@ -7,6 +7,7 @@ import { ExploreDao } from './explore-dao';
 import { DaoDetail } from './dao-detail';
 import { ProposalView } from './proposal-view';
 import { FormDataProvider } from '@/providers/FormDaoBuildDataContext';
+import { CreateProposal } from './create-proposal/CreateProposal';
 
 const routes = [
   { path: '/', Page: Home },
@@ -14,7 +15,9 @@ const routes = [
   { path: '/review-dao-info', Page: ReviewDaoInformation },
   { path: '/explore-dao', Page: ExploreDao },
   { path: '/explore-dao/:daoName', Page: DaoDetail },
+  { path: '/explore-dao/:daoName', Page: DaoDetail },
   { path: '/proposal-view/:proposalId', Page: ProposalView },
+  { path: '/proposal-create/:daoName', Page: CreateProposal },
 ];
 
 function Routing() {
