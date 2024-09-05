@@ -7,6 +7,8 @@ import { ADDRESS, PROGRAMS } from '@/consts';
 import { Sails } from 'sails-js';
 import { useNavigate } from 'react-router-dom';
 
+import imgDaoIcon from '@/assets/images/6099e984a465a162069952448.png'
+
 function ProposalDashboard() {
 
   const gearApi = useApi();
@@ -51,9 +53,11 @@ function ProposalDashboard() {
         const sails = await Sails.new();
         sails.setApi(gearApi.api);
         // Load the IDL file
-        const idl = await fetch('./../src/idls/nexus_dao.idl').then((res) => res.text());
+        const idl = await fetch('../src/assets/idls/nexus_dao.idl').then((res) => res.text());
         sails.parseIdl(idl);
         sails.setProgramId(PROGRAMS.DAO_ID);
+
+        console.log('daoName - ', daoName)
 
         const _daoInfo: TypeDaoInfos = await sails.services.NexusDao.queries.GetDaoInfo(walletAccounts[0].address, undefined, undefined, daoName);
         setDaoInfos(_daoInfo);
@@ -95,7 +99,7 @@ function ProposalDashboard() {
           </div>
         </div>
         <div className={styles.profile}>
-          <img src="/src/assets/images/6099e984a465a162069952448.png" alt="Profile" />
+          <img src={imgDaoIcon} alt="Profile" />
           <button className={styles.followButton}>Follow</button>
         </div>
       </header>

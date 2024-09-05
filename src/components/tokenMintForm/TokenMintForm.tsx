@@ -21,7 +21,8 @@ function TokenMintForm({ onChange }: { onChange: (formData: {programId: string})
       <div className={styles.formGroup}>
         <label htmlFor="token-name">VFT Token</label>
         <p className={styles.subtext}>Token program id </p>
-        <p className={styles.subtext}>If you haven&apos;t a token your can create with it https://idea.gear-tech.io/codes/0x7ba888ce90e75fcdabc379a02f1f322ee2d654301402c57186d85457c9e5b966/initialize?node=wss%3A%2F%2Ftestnet.vara.network [0x7ba888ce90e75fcdabc379a02f1f322ee2d654301402c57186d85457c9e5b966]. </p>
+        <p className={styles.subtext}>If you haven&apos;t a token your can create with it <a href="https://idea.gear-tech.io/codes/0x7ba888ce90e75fcdabc379a02f1f322ee2d654301402c57186d85457c9e5b966/initialize?node=wss%3A%2F%2Ftestnet.vara.network">[Create a vft token]</a>  . </p>
+        <p className={styles.subtext}>Or use the demo token: 0x3881881eadb003b1f144f6bcf50a9edbcebfc16c9dab554b1723dbe3b3c2fddd </p>
          <input
           type="text"
           id="token-program-id"

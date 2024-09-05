@@ -8,7 +8,7 @@ import { useAccount, useApi } from '@gear-js/react-hooks';
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto';
 import { BN, hexToBn } from '@polkadot/util';
 
-import { PROGRAMS } from '@/consts';
+import { ADDRESS, LOCAL_STORAGE, PROGRAMS} from '@/consts';
 import { useFormData } from '@/providers/FormDaoBuildDataContext';
 import { H } from 'node_modules/vite/dist/node/types.d-aGj9QkWt';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ function ReviewDaoInformation() {
     console.log(walletAccounts, wallet, extensions);
     
     setIsDeploying(true);
-    console.log("DAO_PROGRAM_ID" ,PROGRAMS);
+    console.log("DAO_PROGRAM_ID" ,{ADDRESS, LOCAL_STORAGE, PROGRAMS});
     try {
 
       if(gearApi.api && walletAccounts && walletAccounts.length > 0 && extensions && extensions.length > 0) {
@@ -53,7 +53,7 @@ function ReviewDaoInformation() {
         sails.setApi(gearApi.api);
 
         // Load the IDL file
-        const idl = await fetch('./src/idls/nexus_dao.idl').then((res) => res.text());
+        const idl = await fetch('./src/assets/idls/nexus_dao.idl').then((res) => res.text());
         sails.parseIdl(idl);
         sails.setProgramId(PROGRAMS.DAO_ID);
 
@@ -95,7 +95,7 @@ function ReviewDaoInformation() {
         const sails = await Sails.new();
         sails.setApi(gearApi.api);
         // Load the IDL file
-        const idl = await fetch('./src/idls/nexus_vft.idl').then((res) => res.text());
+        const idl = await fetch('./src/assets/idls/nexus_vft.idl').then((res) => res.text());
         sails.parseIdl(idl);
         // sails.setProgramId("0x3881881eadb003b1f144f6bcf50a9edbcebfc16c9dab554b1723dbe3b3c2fddd");
         sails.setProgramId(formData.programId as HexString);
@@ -203,13 +203,17 @@ function ReviewDaoInformation() {
             </div>
             
             <div className='submit-container'>
-            <button 
-              className="deploy-dao-button" 
-              onClick={handleDeploy} 
-              disabled={isDeploying}
-            >
-            {isDeploying ? 'Deploying...' : 'Deployed to Vara'}
-            </button>
+            {balanceList.length > 0 ? (
+              <button 
+                className="deploy-dao-button" 
+                onClick={handleDeploy} 
+                disabled={isDeploying}
+              >
+                {isDeploying ? 'Deploying...' : 'Deployed to Vara'}
+              </button>
+            ) : (
+              <p>Please ensure it is a NexusVft Token.</p>
+            )}
             </div>
             
           </div>

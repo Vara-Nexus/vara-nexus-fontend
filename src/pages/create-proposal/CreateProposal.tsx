@@ -45,7 +45,7 @@ function CreateProposal() {
         sails.setApi(gearApi.api);
         
         // Load the DAO IDL file (update the path to match your setup)
-        const idl = await fetch('../src/idls/nexus_dao.idl').then((res) => res.text());
+        const idl = await fetch('../src/assets/idls/nexus_dao.idl').then((res) => res.text());
         sails.parseIdl(idl);
         sails.setProgramId(PROGRAMS.DAO_ID); // Ensure you have the correct DAO program ID
 
@@ -98,9 +98,12 @@ function CreateProposal() {
     
   }
 
-  const handleDescribeDataChange = (data: SetStateAction< {title: string, summary: string}>) => {
+  const handleDescribeDataChange = (data: {title: string, summary: string}) => {
     if(data){
-      setProposalInfos(data);
+      setProposalInfos({
+        title: data.title,
+        summary: data.summary
+      });
     }
   };
 

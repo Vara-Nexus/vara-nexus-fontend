@@ -25,7 +25,7 @@ function ExploreDaos() {
         const sails = await Sails.new();
         sails.setApi(gearApi.api);
         // Load the IDL file
-        const idl = await fetch('./src/idls/nexus_dao.idl').then((res) => res.text());
+        const idl = await fetch('./src/assets/idls/nexus_dao.idl').then((res) => res.text());
         sails.parseIdl(idl);
         sails.setProgramId(PROGRAMS.DAO_ID);
 
@@ -36,7 +36,7 @@ function ExploreDaos() {
           "token": null
         }] = await sails.services.NexusDao.queries.GetAllDaoInfo(walletAccounts[0].address);
 
-        setDaoInfos(result);
+        setDaoInfos(result.reverse());
         
       } catch (error) {
         console.error('Failed to fetch balances:', error);
