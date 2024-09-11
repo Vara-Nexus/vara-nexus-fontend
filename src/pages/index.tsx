@@ -15,8 +15,7 @@ const routes = [
   { path: '/review-dao-info', Page: ReviewDaoInformation },
   { path: '/explore-dao', Page: ExploreDao },
   { path: '/explore-dao/:daoName', Page: DaoDetail },
-  { path: '/explore-dao/:daoName', Page: DaoDetail },
-  { path: '/proposal-view/:proposalId', Page: ProposalView },
+  { path: '/proposal-detail/:daoName/:proposalId', Page: ProposalView },
   { path: '/proposal-create/:daoName', Page: CreateProposal },
 ];
 

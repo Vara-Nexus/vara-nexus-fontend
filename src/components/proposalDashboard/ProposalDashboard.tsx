@@ -45,7 +45,7 @@ function ProposalDashboard() {
     voting_start: number
   }
 
-  const fetchBalanceList = async () => {
+  const fetchDaoInfo = async () => {
 
     if(gearApi.api && walletAccounts && walletAccounts.length > 0 && extensions && extensions.length > 0) {
       try {
@@ -62,9 +62,9 @@ function ProposalDashboard() {
         const _daoInfo: TypeDaoInfos = await sails.services.NexusDao.queries.GetDaoInfo(walletAccounts[0].address, undefined, undefined, daoName);
         setDaoInfos(_daoInfo);
 
-        // 通过 GetProposals 获取所有的提案
+        // 
         const _proposals: [TypeProposal] = await sails.services.NexusDao.queries.GetProposals(walletAccounts[0].address, undefined, undefined, daoName);
-        // @TODO
+        // 
         console.log('Proposals:', _proposals);
         setProposals(_proposals.reverse());
 
@@ -81,8 +81,8 @@ function ProposalDashboard() {
 
   useEffect(() => {
 
-    fetchBalanceList().catch((error) => {
-      alert('Failed to fetch da');
+    fetchDaoInfo().catch((error) => {
+      alert('Failed to fetch data of dao');
     });
   }, []); 
 
@@ -118,7 +118,7 @@ function ProposalDashboard() {
               
               <div className={styles.proposal} key={index}>
                 <span className={styles.statusActived}>Actived</span>
-                <h3>{proposal.title}</h3>
+                <h3><a href={`/proposal-detail/${daoName}/${index}`}>{proposal.title}</a></h3>
                 <p>{proposal.description}</p>
                 <span>Published </span> 
               </div>
