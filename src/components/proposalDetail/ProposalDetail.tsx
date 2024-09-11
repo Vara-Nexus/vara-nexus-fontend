@@ -47,7 +47,7 @@ function ProposalDetail() {
         sails.parseIdl(idl);
         sails.setProgramId(PROGRAMS.DAO_ID);
         // // Call GetProposal : query GetProposal : (dao_name: str, proposal_id: u32) -> opt Proposal;
-        const _proposalInfo: TypeProposal = await sails.services.NexusDao.queries.GetProposal(walletAccounts[0].address, undefined, undefined, daoName, Number(proposalId)+1);
+        const _proposalInfo: TypeProposal = await sails.services.NexusDao.queries.GetProposal(walletAccounts[0].address, undefined, undefined, daoName, Number(proposalId));
 
         console.log('_proposalInfo - ', _proposalInfo)
 
@@ -69,7 +69,7 @@ function ProposalDetail() {
   return (
     <div className={styles.proposalContainer}>
       <div className={styles.proposalHeader}>
-        <h2>Decided to participate in Vara&#39;s hackathon.</h2>
+        <h2>{proposal?.title}</h2>
         <p className={styles.publishedBy}>
           Published by {proposal?.creator} {/* on 2024/07/15 09:50 PM UTC+8 */}
         </p>
@@ -79,7 +79,7 @@ function ProposalDetail() {
       <div className={styles.proposalContent}>
         <div className={styles.votingSection}>
           <h3>Voting</h3>
-          <p className={styles.proposalDefeated}>❗Proposal defeated</p>
+          <p className={styles.proposalActived}>❗Proposal Active</p>
           {/* <div className={styles.votingBreakdown}>
             <button className={styles.activeTab}>Breakdown</button>
             <button>Voters</button>

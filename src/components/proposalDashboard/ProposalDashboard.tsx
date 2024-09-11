@@ -118,7 +118,7 @@ function ProposalDashboard() {
               
               <div className={styles.proposal} key={index}>
                 <span className={styles.statusActived}>Actived</span>
-                <h3><a href={`/proposal-detail/${daoName}/${index}`}>{proposal.title}</a></h3>
+                <h3><a href={`/proposal-detail/${daoName}/${proposals.length - index}`}>{proposal.title}</a></h3>
                 <p>{proposal.description}</p>
                 <span>Published </span> 
               </div>
